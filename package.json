@@ -12,7 +12,7 @@
   ],
   "type": "module",
   "scripts": {
-    "start ": "vite",
+    "start": "vite",
     "dev": "vite build --watch --mode development",
     "build": "vite build",
     "test": "pnpm dlx gscan@latest . --v6",
