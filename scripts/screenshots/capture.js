@@ -23,11 +23,49 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..', '..');
 const SCREENSHOTS_DIR = join(ROOT, 'screenshots');
 
+async function autoScrollAndLoadImages(page) {
+  // Smooth scroll to bottom to trigger lazy loading for all images
+  await page.evaluate(async () => {
+    await new Promise((resolve) => {
+      let totalHeight = 0;
+      const distance = 400;
+      const timer = setInterval(() => {
+        const scrollHeight = document.body.scrollHeight;
+        window.scrollBy(0, distance);
+        totalHeight += distance;
+
+        if (totalHeight >= scrollHeight) {
+          clearInterval(timer);
+          window.scrollTo(0, 0);
+          resolve();
+        }
+      }, 100);
+    });
+  });
+
+  // Ensure all images are fully loaded and decoded
+  await page.evaluate(async () => {
+    const images = Array.from(document.querySelectorAll('img'));
+    await Promise.all(
+      images.map((img) => {
+        if (img.complete) {
+          return img.decode ? img.decode().catch(() => {}) : Promise.resolve();
+        }
+        return new Promise((resolve) => {
+          img.onload = () => (img.decode ? img.decode().catch(() => {}).then(resolve) : resolve());
+          img.onerror = resolve;
+        });
+      })
+    );
+  });
+}
+
 async function capturePage(page, url, viewportDir, name) {
   const filePath = join(viewportDir, `${name}.png`);
   try {
     await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 });
-    await page.waitForTimeout(1000);
+    await autoScrollAndLoadImages(page);
+    await page.waitForTimeout(500);
     await page.screenshot({ path: filePath, fullPage: true });
     return { name, path: filePath, status: 'ok' };
   } catch (error) {
