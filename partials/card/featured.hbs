@@ -1,0 +1,94 @@
+<article
+    class="group flex flex-col h-full overflow-hidden rounded-xs border border-neutral-800/80 bg-neutral-900/40 hover:bg-neutral-900/80 hover:border-neutral-700/80 transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-neutral-950/50">
+    <a class="flex h-full flex-col text-white outline-none" href="{{url}}">
+
+        {{#if feature_image}}
+        <div class="relative h-54 w-full overflow-hidden bg-neutral-950">
+            <img srcset="{{img_url feature_image size='s' }} 300w, {{img_url feature_image size='m' }} 600w, {{img_url
+                feature_image size='l' }} 1000w, {{img_url feature_image size='xl' }} 2000w"
+                sizes="(max-width: 1000px) 400px, 700px" src="{{img_url feature_image size='m'}}"
+                alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}"
+                class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy" />
+
+            <div
+                class="absolute inset-0 bg-linear-to-t from-neutral-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300">
+            </div>
+
+            <div class="absolute top-3.5 right-3.5 z-10">
+                <span
+                    class="inline-flex items-center gap-2 rounded-full bg-neutral-950/80 backdrop-blur-md border border-neutral-800 px-3 py-1 text-[11px] font-medium text-neutral-200 shadow-sm">
+                    {{> "components/icon" name="clock" class="size-3 text-neutral-400"}}
+                    <span>{{reading_time minute="1 min read" minutes="% min read"}}</span>
+                </span>
+            </div>
+
+            {{#if primary_tag}}
+            {{#primary_tag}}
+            <div class="absolute bottom-3.5 left-3.5 z-10">
+                <span
+                    class="inline-flex items-center gap-1.5 rounded-full bg-neutral-950/80 backdrop-blur-md border border-neutral-800 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-neutral-300 shadow-sm">
+                    {{> "components/icon" name="tag" class="size-3 text-neutral-400"}}
+                    {{name}}
+                </span>
+            </div>
+            {{/primary_tag}}
+            {{/if}}
+        </div>
+        {{/if}}
+
+        <div class="flex flex-1 flex-col gap-4 p-6">
+            {{#unless feature_image}}
+            <div class="flex items-center gap-2 flex-wrap">
+                {{#if primary_tag}}
+                {{#primary_tag}}
+                <span class="text-xs font-semibold uppercase tracking-wider text-neutral-400">{{name}}</span>
+                {{/primary_tag}}
+                <span class="text-xs text-neutral-600">&middot;</span>
+                {{/if}}
+                <time datetime="{{date published_at format=" YYYY-MM-DD"}}" class="text-xs text-neutral-400">
+                    {{date published_at format="DD MMM YYYY"}}
+                </time>
+            </div>
+            {{/unless}}
+
+            <h2
+                class="text-xl font-bold tracking-tight text-white group-hover:text-neutral-200 transition-colors leading-snug">
+                {{title}}
+            </h2>
+
+            {{#if excerpt}}
+            <p class="mt-2 text-sm text-neutral-400 line-clamp-2 leading-relaxed">
+                {{excerpt words="20"}}
+            </p>
+            {{else if custom_excerpt}}
+            <p class="mt-2 text-sm text-neutral-400 line-clamp-2 leading-relaxed">
+                {{custom_excerpt}}
+            </p>
+            {{/if}}
+            {{!-- footer --}}
+            <div
+                class="mt-auto pt-3 flex items-center justify-between border-t border-neutral-800/50 text-xs text-neutral-400">
+                <div class="flex items-center gap-2">
+                    {{#primary_author}}
+                    {{#if profile_image}}
+                    <img src="{{img_url profile_image size=" xs"}}" alt="{{name}}"
+                        class="hidden sm:block size-6 rounded-full object-cover ring-1 ring-neutral-800" />
+                    {{/if}}
+                    <span class="font-medium text-neutral-300">{{name}}</span>
+                    {{/primary_author}}
+                    <span class="hidden sm:inline-flex">&middot;</span>
+                    <time class="hidden sm:inline-flex" datetime="{{date published_at format='YYYY-MM-DD'}}">{{date
+                        published_at format='DD MMM YYYY'}}</time>
+                </div>
+
+                <div
+                    class="flex items-center gap-1.5 font-semibold text-neutral-300 group-hover:text-white transition-colors">
+                    <span>Read</span>
+                    {{> "components/icon" name="arrow-right" class="size-3.5 transition-transform duration-300
+                    group-hover:translate-x-1"}}
+                </div>
+            </div>
+        </div>
+    </a>
+</article>
