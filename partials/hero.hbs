@@ -1,84 +1,20 @@
-<div class="w-full mb-16 mx-auto bg-[#110f0e]">
-    <div class="mx-auto w-full max-w-324 px-8 md:px-12 lg:px-16 xl:px-0">
-        <div class="pt-38 pb-20">
-
-            {{#is "home, index"}}
-
-            <h1 class="text-4xl font-semibold md:font-extrabold tracking-tighter md:max-w-4xl md:text-5xl lg:text-7xl">
-                {{#if @custom.hero_title}}{{@custom.hero_title}}{{else}}{{@site.title}}{{/if}}
-            </h1>
-
-            {{#if @site.description}}
-            <p class="mt-8 md:w-2xl text-xl text-neutral-300 md:mt-5 md:mx-0 mb-4">
-                {{@site.description}}
-            </p>
-            {{/if}}
-
-            {{else is "tag"}}
-
-            {{#tag}}
-            <h1 class="text-4xl font-semibold md:font-extrabold tracking-tighter md:max-w-4xl md:text-5xl lg:text-7xl">
-                {{name}}
-            </h1>
-
-            {{#if description}}
-            <p class="mt-8 md:w-2xl text-xl text-neutral-300 md:mt-5 md:mx-0 mb-4">
-                {{description}}
-            </p>
-            {{else}}
-            <p class="mt-8 md:w-2xl text-xl text-neutral-300 md:mt-5 md:mx-0 mb-4">
-                A collection of {{plural pagination.total empty="zero posts" single="one post" plural="% posts"}}
-            </p>
-            {{/if}}
-            {{/tag}}
-
-            {{else is "author"}}
-            {{log "author" author}}
-            <h1 class="text-4xl font-semibold md:font-extrabold tracking-tighter md:max-w-4xl md:text-5xl lg:text-7xl">
-                {{name}}
-            </h1>
-
-            {{#if bio}}
-            <p class="mt-8 md:w-2xl text-xl text-neutral-300 md:mt-5 md:mx-0 mb-4">
-                {{bio}}
-            </p>
-            {{/if}}
-            <div class="flex items-center gap-4 sm:gap-6 mt-10">
-            {{#if website}}
-                <a href="{{website}}" target="_blank" title="Visit the {{name}} profile"
-                    class="hidden h-4 w-4 hover:opacity-80 transition-opacity items-center justify-center lg:inline-flex"
-                    rel="noopener" aria-label="Visit {{name}}'s {{type}} profile">
-                    {{> "components/icon" name="globe"}}
-
-                </a>
-                {{/if}}
-                {{!-- social media icons --}}
-                {{#social_accounts this}}
-                <a href="{{href}}" target="_blank" title="Visit the {{name}} profile"
-                    class="hidden h-4 w-4 hover:opacity-80 transition-opacity items-center justify-center lg:inline-flex"
-                    rel="noopener" aria-label="Visit {{name}}'s {{type}} profile">
-                    {{#> (concat "icons/" type)}}
-                    {{name}}
-                    {{/undefined}}
-                </a>
-                {{/social_accounts}}
-            </div>
-            {{else}}
-
-            {{#post}}
-            <h1 class="text-4xl font-semibold md:font-extrabold tracking-tighter md:max-w-4xl md:text-5xl lg:text-7xl">
-                {{title}}
-            </h1>
-
-            {{#if custom_excerpt}}
-            <p class="mt-8 md:w-2xl text-xl text-neutral-300 md:mt-5 md:mx-0 mb-4">
-                {{custom_excerpt}}
-            </p>
-            {{/if}}
-            {{/post}}
-
-            {{/is}}
-
-        </div>
+{{#if @custom.show_hero}}
+<div class="w-full border-b border-neutral-800/60 bg-neutral-950/40 py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-4 md:px-8">
+    <div class="max-w-3xl">
+      <h1 class="text-4xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl">
+        {{#if @custom.hero_title}}{{@custom.hero_title}}{{else if @site.title}}{{@site.title}}{{else}}Learn
+        Tutorials{{/if}}
+      </h1>
+      {{log @custom.hero_description }}
+      <p class="mt-6 text-base leading-relaxed text-neutral-300 md:text-xl">
+        {{#if @custom.hero_description}}{{@custom.hero_description}}
+        {{else if @site.description}}
+        {{@site.description}}
+        {{else}}I create free YouTube tutorials and compile them here, along with the code and articles for most
+        videos.{{/if}}
+      </p>
     </div>
+  </div>
 </div>
+{{/if}}
