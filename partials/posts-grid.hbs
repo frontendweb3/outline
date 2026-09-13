@@ -1,0 +1,13 @@
+{{#match @custom.posts_grid_columns "2"}}
+<div class="grid w-full gap-6 grid-cols-1 md:grid-cols-2">
+    {{#foreach posts}}
+        {{> "card"}}
+    {{/foreach}}
+</div>
+{{else}}
+<div class="grid w-full gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {{#foreach posts}}
+        {{> "card"}}
+    {{/foreach}}
+</div>
+{{/match}}
