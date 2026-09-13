@@ -84,6 +84,11 @@
         "type": "boolean",
         "default": true,
         "description": "Show or hide the Sign Up button in the header"
+      },
+      "show_page_feature_image": {
+        "type": "boolean",
+        "default": false,
+        "description": "Show or hide the feature image on static pages"
       }
     }
   },

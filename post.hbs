@@ -1,14 +1,13 @@
-{{!< default}} {{#post}} <article class="w-full py-12 md:py-16">
+{{!< default}} {{#post}} <article class="w-full">
 
   <!-- Post Header -->
-  <header class="mx-auto max-w-7xl px-4 md:px-8">
-
+  <header class="mx-auto pt-10 md:pt-12 bg-[#110f0e] px-4 md:px-8">
     <div class="mx-auto max-w-4xl">
 
       <!-- Feature Image on Top -->
       {{#if feature_image}}
       <figure class="mb-8 md:mb-10">
-        <div class="overflow-hidden sm:rounded-sm border border-neutral-800 shadow-2xl">
+        <div class="overflow-hidden border border-neutral-800 shadow-2xl">
           <img class="w-full object-cover max-h-140" srcset="{{img_url feature_image size=" s"}} 300w, {{img_url
             feature_image size="m" }} 600w, {{img_url feature_image size="l" }} 1000w, {{img_url feature_image size="xl"
             }} 2000w" sizes="(max-width: 1000px) 100vw, 1000px" src="{{img_url feature_image size=" l"}}"

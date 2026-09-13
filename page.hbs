@@ -1,23 +1,49 @@
-{{!< default}}
+{{!< default}} {{#post}} <article class="w-full">
 
-{{#post}}
-<article class="mx-auto max-w-7xl px-4 md:px-8 py-12">
   {{#if @page.show_title_and_feature_image}}
-  <header class="mx-auto max-w-3xl mb-12">
-    <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">{{title}}</h1>
-    {{#if custom_excerpt}}
-    <p class="text-xl text-zinc-400 leading-relaxed">{{custom_excerpt}}</p>
-    {{/if}}
-    {{#if feature_image}}
-    <div class="mt-8 overflow-hidden rounded-2xl border border-zinc-800/80 shadow-xl">
-      <img src="{{img_url feature_image size="l"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full object-cover max-h-128" />
+
+  <div class="w-full border-b border-neutral-800/60 bg-[#110f0e] py-24 md:py-32">
+    <div class="mx-auto max-w-4xl px-4 md:px-8">
+
+      {{#if @custom.show_page_feature_image}}
+      {{#if feature_image}}
+      <div class="overflow-hidden shadow-2xl mb-8">
+        <img class="w-full object-cover" srcset="{{img_url feature_image size='s'}} 300w, {{img_url
+          feature_image size='m' }} 600w, {{img_url feature_image size='l' }} 1000w, {{img_url feature_image size='xl'
+          }} 2000w" sizes="(max-width: 1000px) 400px, 700px" src="{{img_url feature_image size='m'}}"
+          alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" fetchpriority="high"
+          loading="lazy" />
+      </div>
+      {{/if}}
+      {{/if}}
+
+      <div class="max-w-3xl">
+
+        <h1 class="text-3xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
+          {{title}}
+        </h1>
+
+        {{#if custom_excerpt}}
+        <p class="mt-4 text-base leading-relaxed text-neutral-300 md:text-xl">
+          {{custom_excerpt}}
+        </p>
+        {{else}}
+        <p class="mt-4 text-base text-neutral-400 md:text-lg"> {{excerpt}}
+        </p>
+        {{/if}}
+      </div>
     </div>
-    {{/if}}
-  </header>
+
+  </div>
   {{/if}}
 
-  <div class="prose prose-lg prose-invert mx-auto max-w-3xl prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:opacity-80 prose-code:rounded-md prose-code:bg-zinc-900 prose-code:border prose-code:border-zinc-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-pre:border prose-pre:border-zinc-800 prose-pre:bg-zinc-950">
-    {{content}}
-  </div>
-</article>
-{{/post}}
+  <section class="mx-auto max-w-3xl my-12">
+    <div
+      class="prose prose-lg prose-invert mx-auto max-w-3xl prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:opacity-80 prose-code:rounded-md prose-code:bg-zinc-900 prose-code:border prose-code:border-zinc-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-pre:border prose-pre:border-zinc-800 prose-pre:bg-zinc-950">
+      {{content}}
+    </div>
+  </section>
+  </article>
+
+
+  {{/post}}
