@@ -1,18 +1,30 @@
-{{!< default}}
+{{!< default}} {{#tag}} <div class="w-full border-b border-neutral-800/60 bg-neutral-950/40 py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-4 md:px-8">
+    <div class="max-w-3xl">
 
-{{> "hero"}}
+      <h1 class="text-3xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl">
+        {{name}}
+      </h1>
 
-<section class="mx-auto max-w-324 px-4 md:px-12 lg:px-16 xl:px-20 2xl:px-0">
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {{#foreach posts}}
-            {{> "card"}}
-        {{/foreach}}
+      {{#if description}}
+      <p class="mt-4 text-base leading-relaxed text-neutral-300 md:text-xl">
+        {{description}}
+      </p>
+      {{else}}
+      <p class="mt-4 text-base text-neutral-400 md:text-lg">
+        A collection of {{plural ../pagination.total empty="0 posts" single="1 post" plural="% posts"}}
+      </p>
+      {{/if}}
     </div>
+  </div>
+  </div>
+  {{/tag}}
+  <section class="mx-auto max-w-7xl px-4 md:px-8 py-10">
+    {{> "posts-grid"}}
 
-     {{#match @custom.pagination_style "simple"}}
-        {{> "simple-pagination"}}
-        {{else}}
-        {{ "pagination"}}
+    {{#match @custom.pagination_style "simple"}}
+    {{> "simple-pagination"}}
+    {{else}}
+    {{> "pagination"}}
     {{/match}}
-</section>
+  </section>
