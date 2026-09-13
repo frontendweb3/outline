@@ -1,20 +1,18 @@
-<footer class="border-t border-border py-10">
+<footer class="border-t border-neutral-800 bg-neutral-950 py-12 mt-16">
     <div class="mx-auto max-w-7xl px-4 md:px-8">
         <div class="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div class="text-sm font-medium text-muted-foreground">
+            <div class="text-xs font-medium text-neutral-400">
                 &copy; {{date format="YYYY"}} {{@site.title}}. All rights reserved.
             </div>
             <div class="flex items-center gap-6">
                 {{navigation type="secondary"}}
             </div>
-            <div class="flex items-center gap-4">
-                {{!-- social media icons --}}
+            <div class="flex items-center gap-2">
                 {{#social_accounts @site}}
-                    <a href="{{href}}" target="_blank" title="Visit the {{name}} profile"
-                        class="h-4 w-4 hover:opacity-80 transition-opacity items-center justify-center inline-flex"
-                        rel="noopener" aria-label="Visit {{name}}'s {{type}} profile">
+                    <a href="{{href}}" target="_blank" rel="noopener" aria-label="{{name}}" title="{{name}}"
+                        class="flex h-9 w-9 items-center justify-center rounded-xl border border-neutral-800 bg-neutral-900/60 text-neutral-400 hover:border-neutral-700 hover:text-white transition-colors">
                          {{#> (concat "icons/" type)}}
-                          {{name}}
+                          <span class="text-xs">{{name}}</span>
                         {{/undefined}}
                     </a>
                 {{/social_accounts}}
