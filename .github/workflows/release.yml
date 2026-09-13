@@ -58,8 +58,8 @@ jobs:
           VERSIONED_ZIP="${NAME}-${VERSION}.zip"
           DEFAULT_ZIP="${NAME}.zip"
 
-          # Ensure versioned zip artifact exists alongside default zip
-          if [ -f "$DEFAULT_ZIP" ] && [ ! -f "$VERSIONED_ZIP" ]; then
+          # Create versioned zip file from build artifact
+          if [ -f "$DEFAULT_ZIP" ]; then
             cp "$DEFAULT_ZIP" "$VERSIONED_ZIP"
           fi
 
@@ -75,10 +75,10 @@ jobs:
           # Check if the release tag already exists on GitHub
           if gh release view "$TARGET_TAG" >/dev/null 2>&1; then
             echo "Release $TARGET_TAG already exists. Updating release assets..."
-            gh release upload "$TARGET_TAG" "$VERSIONED_ZIP" "$DEFAULT_ZIP" --clobber
+            gh release upload "$TARGET_TAG" "$VERSIONED_ZIP" --clobber
           else
             echo "New version $VERSION detected in package.json! Creating GitHub release $TARGET_TAG..."
-            gh release create "$TARGET_TAG" "$VERSIONED_ZIP" "$DEFAULT_ZIP" \
+            gh release create "$TARGET_TAG" "$VERSIONED_ZIP" \
               --title "Release $TARGET_TAG" \
               --generate-notes
           fi
