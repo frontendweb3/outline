@@ -1,14 +1,23 @@
 {{!< default}}
 
-{{#if @page.show_title_and_feature_image}}
-{{> "hero"}}
-{{/if}}
-
 {{#post}}
-  <article class="mx-auto pb-24 max-w-7xl px-4 md:px-12 lg:px-16 2xl:px-0">
-    <div class="prose prose-lg prose-invert mx-auto mb-16 max-w-3xl prose-headings:font-bold prose-a:text-(--ghost-accent-color) hover:prose-a:opacity-90 prose-code:rounded prose-code:bg-zinc-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-pre:border prose-pre:border-zinc-800 prose-pre:bg-zinc-950">
-      {{content}}
+<article class="mx-auto max-w-7xl px-4 md:px-8 py-12">
+  {{#if @page.show_title_and_feature_image}}
+  <header class="mx-auto max-w-3xl mb-12">
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight text-white mb-4">{{title}}</h1>
+    {{#if custom_excerpt}}
+    <p class="text-xl text-zinc-400 leading-relaxed">{{custom_excerpt}}</p>
+    {{/if}}
+    {{#if feature_image}}
+    <div class="mt-8 overflow-hidden rounded-2xl border border-zinc-800/80 shadow-xl">
+      <img src="{{img_url feature_image size="l"}}" alt="{{#if feature_image_alt}}{{feature_image_alt}}{{else}}{{title}}{{/if}}" class="w-full object-cover max-h-128" />
     </div>
-  </article>
+    {{/if}}
+  </header>
+  {{/if}}
 
+  <div class="prose prose-lg prose-invert mx-auto max-w-3xl prose-headings:font-bold prose-headings:tracking-tight prose-a:text-primary hover:prose-a:opacity-80 prose-code:rounded-md prose-code:bg-zinc-900 prose-code:border prose-code:border-zinc-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm prose-pre:border prose-pre:border-zinc-800 prose-pre:bg-zinc-950">
+    {{content}}
+  </div>
+</article>
 {{/post}}
