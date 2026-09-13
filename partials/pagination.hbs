@@ -1,25 +1,34 @@
 {{#with pagination}}
 {{#match pages ">" 1}}
-<nav class="flex items-center justify-between py-12 border-t border-zinc-800/60 my-36 w-full text-sm font-medium"
-    role="navigation" aria-label="Pagination Navigation">
-    <div class="flex-1 flex justify-start">
+<nav class="my-36 flex w-full items-center justify-between  pt-8 text-sm font-medium" role="navigation"
+    aria-label="Pagination Navigation">
+    <div class="flex flex-1 justify-start">
         {{#if prev}}
         <a href="{{page_url prev}}"
-            class="inline-flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/40 px-4 py-2 text-zinc-300 hover:border-zinc-700 hover:text-white transition-colors">
-            {{> "components/icon" name="arrow-left" class="size-4"}}
-            Previous
+            class="group inline-flex items-center gap-2.5 rounded-xl border border-border/80 bg-card/60 px-4 py-2.5 text-muted-foreground transition-all duration-300 hover:border-primary/50 hover:bg-accent hover:text-foreground hover:shadow-sm"
+            aria-label="Go to previous page">
+            {{> "components/icon" name="arrow-left" class="size-4 transition-transform duration-300 ease-out
+            group-hover:-translate-x-1"}}
+            <span>Previous</span>
         </a>
         {{/if}}
     </div>
-    <div class="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-        Page {{page}} of {{pages}}
+
+    {{#match page ">" 1}}
+    <div
+        class="inline-flex items-center rounded-full border border-border/40 bg-muted/30 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground shadow-2xs">
+        <span>Page {{page}} <span class="text-muted-foreground/60 font-normal">of</span> {{pages}}</span>
     </div>
-    <div class="flex-1 flex justify-end">
+    {{/match}}
+
+    <div class="flex flex-1 justify-end">
         {{#if next}}
         <a href="{{page_url next}}"
-            class="inline-flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/40 px-4 py-2 text-zinc-300 hover:border-zinc-700 hover:text-white transition-colors">
-            Next
-            {{> "components/icon" name="arrow-right" class="size-4"}}
+            class="group inline-flex items-center gap-2.5 rounded-xl border border-border/80 bg-card/60 px-4 py-2.5 text-muted-foreground transition-all duration-300 hover:border-primary/50 hover:bg-accent hover:text-foreground hover:shadow-sm"
+            aria-label="Go to next page">
+            <span>Next</span>
+            {{> "components/icon" name="arrow-right" class="size-4 transition-transform duration-300 ease-out
+            group-hover:translate-x-1"}}
         </a>
         {{/if}}
     </div>
