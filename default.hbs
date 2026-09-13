@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="{{@site.locale}}">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {{#is "error"}}
+    <title>{{statusCode}} — {{message}}</title>
+    <meta name="robots" content="noindex, follow">
+    {{else}}
+    {{#is "paged"}}
+    <title>Page {{pagination.page}} | {{@site.title}}</title>
+    {{else}}
     <title>{{meta_title}}</title>
-    <link rel="stylesheet" href="{{asset "dist/css/main.css"}}">
-    
+    {{/is}}
+    {{/is}}
+
+    <!-- BEGIN HMR DEV SCRIPT -->
+    <script id="ghost-vite-hmr">
+        (function () {
+            const host = window.location.hostname || 'localhost';
+            const isLocal = host === 'localhost' || host === '127.0.0.1' || host.endsWith('.local');
+
+            if (isLocal) {
+                const port = 5173;
+                const viteBaseUrl = `http://${host}:${port}`;
+
+                fetch(`${viteBaseUrl}/@vite/client`, { mode: 'no-cors' })
+                    .then(() => {
+                        const hmrScript = document.createElement('script');
+                        hmrScript.type = 'module';
+                        hmrScript.src = `${viteBaseUrl}/assets/js/hmr.js`;
+                        document.head.appendChild(hmrScript);
+                    })
+                    .catch(() => { });
+            }
+        })();
+    </script>
+    <!-- END HMR DEV SCRIPT -->
+
     {{> "style-script"}} {{!-- partials/style-script.hbs --}}
 
     {{ghost_head}}
-    
+
 </head>
-<body class="{{body_class}} bg-background text-foreground antialiased transition-colors duration-300 selection:bg-primary selection:text-primary-foreground">
+
+<body
+    class="{{body_class}} bg-background text-foreground antialiased transition-colors duration-300 selection:bg-primary selection:text-primary-foreground">
 
     <div class="flex flex-col min-h-screen">
 
@@ -25,9 +60,9 @@
 
     </div>
 
-    <script src="{{asset "dist/js/main.js"}}"></script>
 
     {{ghost_foot}}
 
 </body>
+
 </html>
